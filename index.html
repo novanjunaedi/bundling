@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Bundling Courses - CODEPOLITAN</title>
+    <meta name="description"
+        content="Dapatkan penawaran terbaik untuk paket bundling kursus programming terpopuler di CODEPOLITAN. Tingkatkan skill-mu dengan harga lebih hemat!">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#14a7a0',
+                        primaryHover: '#118d87',
+                        secondary: '#1e293b', // Slate 800 - replacing pink secondary for cleaner vibe
+                        surface: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-gray-800 antialiased font-sans overflow-x-hidden">
+
+    <!-- 1. HEADER -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <img src="https://image.web.id/images/codepolitan-logoc787963e27f753de.png" alt="Codepolitan"
+                            class="h-8 md:h-10 object-contain">
+                    </a>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium transition">Belajar</a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium transition">Program</a>
+                    <a href="bundling.html" class="text-primary font-bold border-b-2 border-primary pb-1">Hot Bundling
+                        🔥</a>
+                    <a href="index.html" class="text-gray-600 hover:text-primary font-medium transition">Mulai
+                        Gratis!</a>
+                </div>
+
+                <!-- Right Nav (Auth) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 font-medium hover:text-primary transition">Member Area</a>
+                    <a href="#"
+                        class="bg-primary hover:bg-primaryHover text-white font-semibold px-5 py-2.5 rounded-lg transition shadow-sm">Gabung
+                        Program</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="bg-white border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 text-center">
+            <div
+                class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 mb-8 border border-slate-200">
+                <i class="fa-solid fa-tag mr-2 text-primary"></i> Penawaran Waktu Terbatas
+            </div>
+            <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
+                Investasi Cerdas untuk <br class="hidden md:block" /> Karir <span class="text-primary">Masa
+                    Depanmu</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Kuasai keterampilan digital berstandar industri dengan materi terstruktur. Semua yang kamu butuhkan ada
+                dalam satu paket, lebih praktis dan jauh lebih hemat. Dengan akses <b>Lifetime</b>!
+            </p>
+        </div>
+    </section>
+
+    <!-- BUNDLING CARDS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20">
+        <div x-data="bundlingData" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="bundle in bundles" :key="bundle.id">
+                <div
+                    class="flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group relative"
+                    :class="bundle.isRecommended ? 'border-2 border-primary' : 'border border-gray-200'">
+                    
+                    <template x-if="bundle.isRecommended">
+                        <div class="absolute top-0 inset-x-0 h-1 bg-primary z-10"></div>
+                    </template>
+
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img :src="bundle.image" :alt="bundle.title"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        
+                        <template x-if="bundle.tag">
+                            <div class="absolute top-4 left-4 text-white text-xs font-bold px-3 py-1 rounded shadow-sm tracking-wide flex items-center gap-1.5"
+                                :class="bundle.tagColor">
+                                <template x-if="bundle.tag === 'HOT PROMO'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 animate-pulse text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                                <template x-if="bundle.tag === 'HIGH VALUE SKILL'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-green-300" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                                <span x-text="bundle.tag"></span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="p-6 flex flex-col flex-grow text-left">
+                        <span class="text-xs font-bold text-slate-500 tracking-wider uppercase mb-2" x-text="bundle.category"></span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3" x-text="bundle.title"></h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed flex-grow" x-text="bundle.description"></p>
+                        
+                        <div class="pt-6 border-t border-slate-100">
+                            <div class="flex items-end justify-between mb-4">
+                                <div>
+                                    <div class="text-sm text-slate-400 line-through mb-1" x-text="bundle.price"></div>
+                                    <div class="text-2xl font-black" 
+                                        :class="bundle.isRecommended ? 'text-primary' : 'text-slate-900'"
+                                        x-text="bundle.discounted_price"></div>
+                                </div>
+                            </div>
+                            <a :href="bundle.link"
+                                class="block w-full text-center font-semibold py-3 rounded-lg transition-colors shadow-sm"
+                                :class="bundle.isRecommended ? 'bg-primary hover:bg-primaryHover text-white' : 'bg-slate-900 hover:bg-slate-800 text-white'">
+                                Beli Sekarang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- CONSULTATION SECTION -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm flex flex-col md:flex-row">
+
+            <!-- Left Info Panel -->
+            <div
+                class="md:w-5/12 bg-slate-50 p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-center">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-4">Butuh Rekomendasi?</h2>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                    Setiap individu memiliki tujuan yang berbeda. Jangan ragu konsultasikan kebutuhan belajarmu secara
+                    objektif kepada tim kami.
+                </p>
+                <ul class="space-y-5">
+                    <li class="flex items-start">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 rounded-full bg-teal-100 text-primary flex items-center justify-center mt-0.5 mr-3">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </div>
+                        <span class="text-slate-700 text-sm">Review profil & pengalaman gratis</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 rounded-full bg-teal-100 text-primary flex items-center justify-center mt-0.5 mr-3">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </div>
+                        <span class="text-slate-700 text-sm">Diskusikan target karir industri</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 rounded-full bg-teal-100 text-primary flex items-center justify-center mt-0.5 mr-3">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </div>
+                        <span class="text-slate-700 text-sm">Pilih alur pembelajaran yang pas</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Form Panel -->
+            <div class="md:w-7/12 p-8 md:p-12">
+                <form x-data="consultationForm()" @submit.prevent="submitForm()" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Nama Lengkap</label>
+                        <input type="text" id="name" x-model="formData.name" required
+                            class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-shadow text-slate-800"
+                            placeholder="Masukkan nama">
+                    </div>
+                    <div>
+                        <label for="harapan" class="block text-sm font-semibold text-slate-700 mb-2">Harapan / Target
+                            Belajar</label>
+                        <textarea id="harapan" x-model="formData.harapan" required rows="4"
+                            class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-shadow text-slate-800"
+                            placeholder="Ceritakan tujuan karir atau harapanmu..."></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-base py-4 rounded-lg shadow hover:shadow-md transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Chat dengan Mentor
+                    </button>
+
+                    <p class="text-center text-xs text-slate-400 mt-4">
+                        <i class="fa-solid fa-lock text-[10px] mr-1"></i> Data aman dan percakapan akan dilanjutkan di
+                        WhatsApp.
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900 tracking-tight mb-4 uppercase">CODEPOLITAN</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Platform belajar coding online terstruktur dengan
+                        materi yang diadaptasi untuk kebutuhan persaingan di industri digital.</p>
+                </div>
+                <div>
+                    <h4 class="text-slate-900 font-bold mb-4">Produk Kami</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Bundling Courses</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Bootcamp Premium</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Solusi Enterprise</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-slate-900 font-bold mb-4">Informasi Pelanggan</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-primary transition">Pusat Bantuan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-slate-900 font-bold mb-4">Tetap Terhubung</h4>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition"><i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-200 pt-8 text-center text-sm text-slate-400">
+                © 2026 CODEPOLITAN. Hak cipta dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('bundlingData', () => ({
+                bundles: [
+                    {
+                        id: 1,
+                        title: "Kuasai Laravel & AI: Menjadi Developer Elite dengan Alur Kerja Modern ",
+                        category: "AI Laravel Development",
+                        description: "Cukup daftar sekali, kamu langsung dapat 9 kelas lengkap materi Laravel 12 & AI berbasis teknologi modern. Belajar melalui berbagai proyek nyata untuk hasilkan portofolio profesional yang diakui standar industri saat ini. ",
+                        price: "Rp 1.499.000",
+                        discounted_price: "Rp 499.000",
+                        image: "https://ik.imagekit.io/6ix6n7mhslj/Roadmap/Screenshot%202026-02-23%20at%2023.32.01_cJWrWfL0R.png",
+                        tag: "HOT PROMO",
+                        tagColor: "bg-rose-600",
+                        link: "https://ai-laravel.codepolitan.com/",
+                        isRecommended: false
+                    },
+                    {
+                        id: 2,
+                        title: "Bundling Quality Assurance & Performance Specialist",
+                        category: "Software Testing & QA",
+                        description: "Di tengah gempuran AI, skill QA dan pemahaman performa aplikasi menjadi sangat krusial. Jadilah talent yang stand out dan dihormati karena mampu menjamin kualitas software.",
+                        price: "Rp 500.000",
+                        discounted_price: "Rp 450.000",
+                        image: "https://ik.imagekit.io/6ix6n7mhslj/Roadmap/Gemini_Generated_Image_boqkd7boqkd7boqk_7xqjXAkZz.png",
+                        tag: "HIGH VALUE SKILL",
+                        tagColor: "bg-indigo-600",
+                        link: "https://www.codepolitan.com/roadmap/quality-assurance/",
+                        isRecommended: false
+                    },
+                    {
+                        id: 3,
+                        title: "Kuasai Vibe Coding: Bangun Website & Apps dengan AI, Deploy Instan Tanpa Ribet",
+                        category: "Generative AI",
+                        description: "Cukup daftar sekali, kamu langsung dapat course lengkap tentang AI Assisted Development & Modern Deployment. Belajar membangun website profesional dengan bantuan AI dengan cepat tanpa harus pusing soal server.",
+                        price: "Rp 1.499.000",
+                        discounted_price: "Rp 449.000",
+                        image: "https://ik.imagekit.io/6ix6n7mhslj/Roadmap/Screenshot%202026-02-23%20at%2023.36.54_KtnHPy1vb.png",
+                        tag: "HOT PROMO",
+                        tagColor: "bg-rose-600",
+                        link: "https://www.codepolitan.com/path/vibe-coding-master/",
+                        isRecommended: false
+                    }
+                ]
+            }));
+
+            Alpine.data('consultationForm', () => ({
+                formData: {
+                    name: '',
+                    harapan: ''
+                },
+                submitForm() {
+                    const phone = '6287778086140';
+                    const message = `Halo Mentor Codepolitan, saya ingin konsultasi gratis mengenai bundling.\n\n` +
+                        `*Nama:* ${this.formData.name}\n` +
+                        `*Harapan Belajar:* ${this.formData.harapan}`;
+
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+                    window.open(whatsappUrl, '_blank');
+                }
+            }));
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                alert('Tampilan menu mobile untuk demonstrasi.');
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+</body>
+
+</html>
